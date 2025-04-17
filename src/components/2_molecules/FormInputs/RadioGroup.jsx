@@ -20,23 +20,40 @@ const RadioGroup = ({
           isHorizontal ? "flex gap-4" : "flex flex-col space-y-2"
         }`}
       >
-        {options.map((option, index) => (
-          <div key={index} className="flex items-center">
-            <input
-              type="radio"
-              id={option.value}
-              name={name}
-              value={option.value}
-              checked={value === option.value}
-              onChange={onChange}
-              className="mr-2 border border-gray-300 rounded px-4 py-2"
-            />
-            <label htmlFor={option.value} className="text-gray-700">
-              {option.label}
+        {options.map((option, index) => {
+          const isSelected = value === option.value;
+
+          return (
+            <label
+              key={index}
+              htmlFor={option.value}
+              className={`cursor-pointer border rounded-xl px-6 py-2 flex items-center gap-3 transition-all duration-200
+                ${
+                  isSelected
+                    ? "border-blue-500 bg-blue-50"
+                    : "border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                }`}
+            >
+              <input
+                type="radio"
+                id={option.value}
+                name={name}
+                value={option.value}
+                checked={isSelected}
+                onChange={onChange}
+                className="hidden"
+              />
+
+              {option.icon && (
+                <span className="text-2xl text-blue-500">{option.icon}</span>
+              )}
+
+              <span className="text-gray-800 font-medium">{option.label}</span>
             </label>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
       {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   );

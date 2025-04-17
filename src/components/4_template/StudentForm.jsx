@@ -1,4 +1,4 @@
-import StudentSignup from "../3_organisms/StudentSignup";
+import SignupForm from "../3_organisms/SignupForm";
 import FormTitle from "../2_molecules/FormTitle";
 
 const StudentForm = () => {
@@ -9,7 +9,7 @@ const StudentForm = () => {
           title="refactoring wasla"
           description="task #1: forms and reusability"
         />
-        <StudentSignup />
+        <SignupForm />
       </div>
     </>
   );

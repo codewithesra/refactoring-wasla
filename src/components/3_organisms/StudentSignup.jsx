@@ -1,284 +1,134 @@
-import { useState, useEffect } from "react";
-import {
-  SignupFormContainer,
-  FieldsContainer,
-} from "../1_atoms/SignupFormContainer";
-import { RiVerifiedBadgeFill } from "react-icons/ri";
-import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
+import { HandleChange } from "../../utils/HelperFunctions";
+import { FieldsContainer } from "../1_atoms/SignupFormContainer";
 import TextInput from "../2_molecules/FormInputs/TextInput";
 import SelectInput from "../2_molecules/FormInputs/SelectInput";
-import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
-import StepIndicator from "../2_molecules/FormInputs/StepIndicator";
-import FormTitle from "../2_molecules/FormTitle";
-import { HandleChange, HandleSubmit } from "../../utils/HelperFunctions";
 import { DateInput } from "../2_molecules/FormInputs/DateInput";
-import { useStepper } from "../../hooks/Stepper";
+import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 
-const StudentSignup = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({
-    // first step
-    email: "",
-    password: "",
-    confirmPassword: "",
-    // second step
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    gender: "",
-    major: "",
-    startingDate: "",
-    expectedGradDate: "",
-    country: "",
-    // third step
-    studentSkills: [],
-    studentCV: "",
-    studentBio: "",
-  });
+const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
+  const handleChange = (e) => HandleChange(e, setFormData);
 
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const steps = ["account info", "personal details", "extra info"];
-
-  const {
-    currentStep,
-    handleNext,
-    handleBack,
-    resetStepper,
-    isFirstStep,
-    isLastStep,
-    errors,
-    validateStep,
-  } = useStepper(1, steps.length);
-
-  const formSubmit = async (e) => {
-    e.preventDefault();
-    // Validate the current step before submitting
-    const { isValid } = await validateStep(currentStep, formData);
-    if (isValid) {
-      if (isLastStep) {
-        // Submit form data if the last step is valid
-        HandleSubmit(e, formData, onSubmit);
-        setIsSubmitted(true);
-        resetStepper();
-      } else {
-        handleNext(formData); // Proceed to the next step if not the last step
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (isSubmitted) {
-      // Reset the form or perform any other action after successful submission
-    }
-  }, [isSubmitted]);
-
-  return (
-    <>
-      <SignupFormContainer>
-        <form onSubmit={formSubmit}>
-          <StepIndicator
-            steps={steps}
-            currentStep={currentStep}
-            isSubmitted={isSubmitted}
+  if (currentStep === 2) {
+    return (
+      <>
+        <FieldsContainer>
+          <TextInput
+            label="firstName"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="enter your firstName"
+            error={errors.firstName}
           />
-          {isSubmitted ? (
-            <div className="text-center p-4">
-              <h2 className="text-2xl font-semibold mb-4 text-center">
-                <div className="flex justify-center mb-2">
-                  <RiVerifiedBadgeFill className="text-blue-500 text-9xl" />
-                </div>
-                you have signed up successfully
-              </h2>
-              <p className="mb-6">what would you like to do?</p>
-              <div className="flex justify-center gap-4">
-                <ConfirmBtn
-                  type="button"
-                  onClick={() => {
-                    resetStepper();
-                  }}
-                >
-                  make a new account
-                </ConfirmBtn>
-              </div>
-            </div>
-          ) : (
-            <>
-              {currentStep === 1 && (
-                <>
-                  <TextInput
-                    label="email"
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="enter your email"
-                    error={errors.email}
-                  />
-                  <FieldsContainer>
-                    <TextInput
-                      label="password"
-                      type="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="enter your password"
-                      error={errors.password}
-                    />
-                    <TextInput
-                      label="confirm Password"
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="confirm your password"
-                      error={errors.confirmPassword}
-                    />
-                  </FieldsContainer>
-                </>
-              )}
+          <TextInput
+            label="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="enter your lastName"
+            error={errors.lastName}
+          />
+        </FieldsContainer>
 
-              {currentStep === 2 && (
-                <>
-                  <FieldsContainer>
-                    <TextInput
-                      label="firstName"
-                      type="input"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="enter your firstName"
-                      error={errors.firstName}
-                    />
-                    <TextInput
-                      label="lastName"
-                      type="input"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="confirm your password"
-                      error={errors.lastName}
-                    />
-                  </FieldsContainer>
+        <FieldsContainer>
+          <TextInput
+            label="major"
+            name="major"
+            value={formData.major}
+            onChange={handleChange}
+            placeholder="enter your major"
+            error={errors.major}
+          />
+          <RadioGroup
+            label="choose your gender"
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            layout="horizontal"
+            options={[
+              { label: "male", value: "male" },
+              { label: "female", value: "female" },
+            ]}
+            error={errors.gender}
+          />
+        </FieldsContainer>
+      </>
+    );
+  }
 
-                  <FieldsContainer>
-                    <TextInput
-                      label="major"
-                      type="input"
-                      name="major"
-                      value={formData.major}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="enter your major"
-                      error={errors.major}
-                    />
-                    <RadioGroup
-                      label="choose your gender"
-                      name="gender"
-                      value={formData.gender}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      layout="horizontal"
-                      options={[
-                        { label: "male", value: "male" },
-                        { label: "female", value: "female" },
-                      ]}
-                      error={errors.gender}
-                    />
-                  </FieldsContainer>
-                </>
-              )}
+  if (currentStep === 3) {
+    return (
+      <>
+        <FieldsContainer>
+          <SelectInput
+            label="choose a country"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            placeholder="choose a country"
+            options={[
+              { value: "1", label: "place 1" },
+              { value: "2", label: "place 2" },
+              { value: "3", label: "place 3" },
+            ]}
+            error={errors.country}
+          />
+          <DateInput
+            label="birth date"
+            name="birthDate"
+            type="date"
+            value={formData.birthDate}
+            onChange={handleChange}
+            error={errors.birthDate}
+          />
+        </FieldsContainer>
 
-              {currentStep === 3 && (
-                <>
-                  <FieldsContainer>
-                    <SelectInput
-                      label="choose a country"
-                      name="country"
-                      value={formData.country}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="choose a country"
-                      options={[
-                        { value: "1", label: "place 1" },
-                        { value: "2", label: "place 2" },
-                        { value: "3", label: "place 3" },
-                      ]}
-                      error={errors.country}
-                    />
+        <FieldsContainer>
+          <DateInput
+            label="starting date"
+            name="startingDate"
+            type="month"
+            value={formData.startingDate}
+            onChange={handleChange}
+            error={errors.startingDate}
+          />
+          <DateInput
+            label="expected graduation date"
+            name="expectedGradDate"
+            type="month"
+            value={formData.expectedGradDate}
+            onChange={handleChange}
+            error={errors.expectedGradDate}
+          />
+        </FieldsContainer>
 
-                    <DateInput
-                      label="birth date"
-                      type="date"
-                      name="birthDate"
-                      value={formData.birthDate}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="enter your birth date"
-                      error={errors.birthDate}
-                    />
-                  </FieldsContainer>
+        <SelectInput
+          label="choose your skills"
+          name="studentSkills"
+          value={formData.studentSkills}
+          onChange={handleChange}
+          options={[
+            { value: "1", label: "skill 1" },
+            { value: "2", label: "skill 2" },
+            { value: "3", label: "skill 3" },
+          ]}
+          isMulti={true}
+          error={errors.studentSkills}
+        />
 
-                  <FieldsContainer>
-                    <DateInput
-                      label="starting date"
-                      type="month"
-                      name="startingDate"
-                      value={formData.startingDate}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      error={errors.startingDate}
-                    />
-                    <DateInput
-                      label="expected graduation date"
-                      type="month"
-                      name="expectedGradDate"
-                      value={formData.expectedGradDate}
-                      onChange={(e) => HandleChange(e, setFormData)}
-                      placeholder="enter your birth date"
-                      error={errors.expectedGradDate}
-                    />
-                  </FieldsContainer>
-                  <SelectInput
-                    label="choose your skills"
-                    name="studentSkills"
-                    value={formData.studentSkills}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="choose your skills"
-                    options={[
-                      { value: "1", label: "skill 1" },
-                      { value: "2", label: "skill 2" },
-                      { value: "3", label: "skill 3" },
-                    ]}
-                    isMulti={true}
-                    error={errors.studentSkills}
-                  />
+        <TextInput
+          label="student bio"
+          name="studentBio"
+          value={formData.studentBio}
+          onChange={handleChange}
+          placeholder="about yourself"
+          error={errors.studentBio}
+        />
+      </>
+    );
+  }
 
-                  <TextInput
-                    label="student bio"
-                    type="input"
-                    name="studentBio"
-                    value={formData.studentBio}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="about yourself"
-                    error={errors.studentBio}
-                  />
-                </>
-              )}
-
-              <div className="flex mt-6">
-                <div className="mr-auto">
-                  {!isFirstStep && (
-                    <GreyBtn type="button" onClick={handleBack}>
-                      Back
-                    </GreyBtn>
-                  )}
-                </div>
-                <div className="ml-auto">
-                  <ConfirmBtn type="submit" className="mr-auto">
-                    {isLastStep ? "Sign Up" : "Next"}
-                  </ConfirmBtn>
-                </div>
-              </div>
-            </>
-          )}
-        </form>
-      </SignupFormContainer>
-    </>
-  );
+  return null;
 };
 
 export default StudentSignup;

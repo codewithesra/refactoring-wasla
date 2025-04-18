@@ -3,8 +3,12 @@ import * as yup from "yup";
 export const StepOneSchema = yup.object().shape({
   email: yup
     .string()
-    .email("please enter a valid email")
-    .required("email is required"),
+    .email("Please enter a valid email")
+    .matches(
+      /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/i,
+      "Email must be a valid format (user@example.com)"
+    )
+    .required("Email is required"),
   password: yup.string().min(7).required("password is required"),
   confirmPassword: yup
     .string()
@@ -56,6 +60,9 @@ export const ProviderStepTwoSchema = yup.object({
 
   estDate: yup
     .date()
+    .transform((value, originalValue) =>
+      originalValue === "" ? null : new Date(originalValue)
+    )
     .max(new Date(), "Establishment date cannot be in the future")
     .required("Establishment date is required"),
 

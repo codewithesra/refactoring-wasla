@@ -52,9 +52,15 @@ const SignupForm = ({ onSubmit }) => {
     }
   };
 
+  const resetForm = () => {
+    setFormData({ accountType: "" });
+    setIsSubmitted(false);
+    resetStepper();
+  };
+
   return (
     <SignupFormContainer>
-      <form onSubmit={formSubmit}>
+      <form onSubmit={formSubmit} noValidate>
         <StepIndicator
           steps={steps}
           currentStep={currentStep}
@@ -70,15 +76,9 @@ const SignupForm = ({ onSubmit }) => {
             </h2>
             <p className="mb-6">what would you like to do?</p>
             <div className="flex justify-center gap-4">
-              <ConfirmBtn
-                type="button"
-                onClick={() => {
-                  setFormData({ accountType: "" });
-                  resetStepper();
-                }}
-              >
+              <ConfirmBtn type="button" onClick={resetForm}>
                 make a new account
-              </ConfirmBtn>
+              </ConfirmBtn>{" "}
             </div>
           </div>
         ) : (

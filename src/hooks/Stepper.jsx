@@ -32,14 +32,9 @@ export function useStepper(
   const isFirstStep = currentStep === 1;
   const isLastStep = maxSteps ? currentStep === maxSteps : false;
 
-  // الحصول على السكيمة المناسبة
-  const getSchemaForStep = (step) => {
-    return schemaMap[accountType]?.[step] || yup.object().shape({});
-  };
-
   const validateStep = useCallback(
     async (step, values) => {
-      const schema = getSchemaForStep(step);
+      const schema = schemaMap[accountType]?.[step] || yup.object().shape({});
       try {
         await schema.validate(values, { abortEarly: false });
         setErrors({});

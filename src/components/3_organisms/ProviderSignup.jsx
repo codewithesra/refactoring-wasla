@@ -44,12 +44,17 @@ const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
             ]}
             error={errors.location}
           />
-          <TextInput
+          <SelectInput
             label="industry"
             name="industry"
             value={formData.industry}
             onChange={handleChange}
-            placeholder="enter industry"
+            placeholder="select industry"
+            options={[
+              { value: "tech", label: "tech" },
+              { value: "medical", label: "medical" },
+              { value: "engineering", label: "engineering" },
+            ]}
             error={errors.industry}
           />
         </FieldsContainer>

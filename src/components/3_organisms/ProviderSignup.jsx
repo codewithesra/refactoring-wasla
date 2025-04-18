@@ -65,9 +65,10 @@ const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
   if (currentStep === 3) {
     return (
       <>
-        <Textarea
+        <TextInput
           label="about"
           name="about"
+          type={"textarea"}
           value={formData.about}
           onChange={handleChange}
           placeholder="write about your organization"

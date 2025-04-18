@@ -20,11 +20,9 @@ import ProviderSignup from "./ProviderSignup";
 const SignupForm = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     accountType: "",
-    // first step
     email: "",
     password: "",
     confirmPassword: "",
-    // second step
     firstName: "",
     lastName: "",
     birthDate: "",
@@ -33,10 +31,15 @@ const SignupForm = ({ onSubmit }) => {
     startingDate: "",
     expectedGradDate: "",
     country: "",
-    // third step
     studentSkills: [],
     studentCV: "",
     studentBio: "",
+    name: "",
+    estDate: "",
+    location: "",
+    industry: "",
+    about: "",
+    file: null,
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -53,7 +56,7 @@ const SignupForm = ({ onSubmit }) => {
     isLastStep,
     errors,
     validateStep,
-  } = useStepper(1, steps.length);
+  } = useStepper(1, steps.length, formData.accountType);
 
   const formSubmit = async (e) => {
     e.preventDefault();
@@ -179,130 +182,6 @@ const SignupForm = ({ onSubmit }) => {
                 errors={errors}
               />
             )}
-
-            {/* {currentStep === 2 && (
-              <>
-                <FieldsContainer>
-                  <TextInput
-                    label="firstName"
-                    type="input"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="enter your firstName"
-                    error={errors.firstName}
-                  />
-                  <TextInput
-                    label="lastName"
-                    type="input"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="confirm your password"
-                    error={errors.lastName}
-                  />
-                </FieldsContainer>
-
-                <FieldsContainer>
-                  <TextInput
-                    label="major"
-                    type="input"
-                    name="major"
-                    value={formData.major}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="enter your major"
-                    error={errors.major}
-                  />
-                  <RadioGroup
-                    label="choose your gender"
-                    name="gender"
-                    value={formData.gender}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    layout="horizontal"
-                    options={[
-                      { label: "male", value: "male" },
-                      { label: "female", value: "female" },
-                    ]}
-                    error={errors.gender}
-                  />
-                </FieldsContainer>
-              </>
-            )}
-
-            {currentStep === 3 && (
-              <>
-                <FieldsContainer>
-                  <SelectInput
-                    label="choose a country"
-                    name="country"
-                    value={formData.country}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="choose a country"
-                    options={[
-                      { value: "1", label: "place 1" },
-                      { value: "2", label: "place 2" },
-                      { value: "3", label: "place 3" },
-                    ]}
-                    error={errors.country}
-                  />
-
-                  <DateInput
-                    label="birth date"
-                    type="date"
-                    name="birthDate"
-                    value={formData.birthDate}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="enter your birth date"
-                    error={errors.birthDate}
-                  />
-                </FieldsContainer>
-
-                <FieldsContainer>
-                  <DateInput
-                    label="starting date"
-                    type="month"
-                    name="startingDate"
-                    value={formData.startingDate}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    error={errors.startingDate}
-                  />
-                  <DateInput
-                    label="expected graduation date"
-                    type="month"
-                    name="expectedGradDate"
-                    value={formData.expectedGradDate}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="enter your birth date"
-                    error={errors.expectedGradDate}
-                  />
-                </FieldsContainer>
-
-                <SelectInput
-                  label="choose your skills"
-                  name="studentSkills"
-                  value={formData.studentSkills}
-                  onChange={(e) => HandleChange(e, setFormData)}
-                  placeholder="choose your skills"
-                  options={[
-                    { value: "1", label: "skill 1" },
-                    { value: "2", label: "skill 2" },
-                    { value: "3", label: "skill 3" },
-                  ]}
-                  isMulti={true}
-                  error={errors.studentSkills}
-                />
-
-                <TextInput
-                  label="student bio"
-                  type="input"
-                  name="studentBio"
-                  value={formData.studentBio}
-                  onChange={(e) => HandleChange(e, setFormData)}
-                  placeholder="about yourself"
-                  error={errors.studentBio}
-                />
-              </>
-            )} */}
 
             <div className="flex mt-6">
               <div className="mr-auto">

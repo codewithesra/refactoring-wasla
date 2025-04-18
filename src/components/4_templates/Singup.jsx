@@ -1,10 +1,10 @@
 import SignupForm from "../3_organisms/SignupForm";
 import FormTitle from "../2_molecules/FormTitle";
 
-const StudentForm = () => {
+const Signup = () => {
   return (
     <>
-      <div className="flex flex-col justify-center min-h-screen">
+      <div className="flex flex-col justify-center my-5 min-h-screen">
         <FormTitle
           title="refactoring wasla"
           description="task #1: forms and reusability"
@@ -15,4 +15,4 @@ const StudentForm = () => {
   );
 };
 
-export default StudentForm;
+export default Signup;

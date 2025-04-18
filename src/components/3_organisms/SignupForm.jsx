@@ -7,40 +7,20 @@ import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
 import StudentSignup from "./StudentSignup";
 import TextInput from "../2_molecules/FormInputs/TextInput";
-import SelectInput from "../2_molecules/FormInputs/SelectInput";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 import StepIndicator from "../2_molecules/FormInputs/StepIndicator";
 import { HandleChange, HandleSubmit } from "../../utils/HelperFunctions";
-import { DateInput } from "../2_molecules/FormInputs/DateInput";
 import { useStepper } from "../../hooks/Stepper";
 import { HiAcademicCap } from "react-icons/hi";
 import { MdBusinessCenter } from "react-icons/md";
 import ProviderSignup from "./ProviderSignup";
+import {
+  studentDefaultValues,
+  providerDefaultValues,
+} from "../../utils/DefaultFormData";
 
 const SignupForm = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({
-    accountType: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-    birthDate: "",
-    gender: "",
-    major: "",
-    startingDate: "",
-    expectedGradDate: "",
-    country: "",
-    studentSkills: [],
-    studentCV: "",
-    studentBio: "",
-    name: "",
-    estDate: "",
-    location: "",
-    industry: "",
-    about: "",
-    file: null,
-  });
+  const [formData, setFormData] = useState({ accountType: "" });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const steps = formData.accountType
@@ -93,6 +73,7 @@ const SignupForm = ({ onSubmit }) => {
               <ConfirmBtn
                 type="button"
                 onClick={() => {
+                  setFormData({ accountType: "" });
                   resetStepper();
                 }}
               >
@@ -113,7 +94,14 @@ const SignupForm = ({ onSubmit }) => {
                     }
                     name="accountType"
                     value={formData.accountType}
-                    onChange={(e) => HandleChange(e, setFormData)}
+                    onChange={(e) => {
+                      const selectedType = e.target.value;
+                      const defaultValues =
+                        selectedType === "student"
+                          ? studentDefaultValues
+                          : providerDefaultValues;
+                      setFormData(defaultValues);
+                    }}
                     layout="horizontal"
                     options={[
                       {

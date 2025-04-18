@@ -3,7 +3,7 @@ import { FieldsContainer } from "../1_atoms/SignupFormContainer";
 import TextInput from "../2_molecules/FormInputs/TextInput";
 import SelectInput from "../2_molecules/FormInputs/SelectInput";
 import { DateInput } from "../2_molecules/FormInputs/DateInput";
-import FileInput from "../1_atoms/FileInput";
+import FileInput from "../2_molecules/FormInputs/FileInput";
 
 const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
@@ -78,13 +78,9 @@ const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
         <FileInput
           label="file"
           name="file"
-          onChange={(e) => {
-            setFormData((prev) => ({
-              ...prev,
-              file: e.target.files[0],
-            }));
-          }}
+          onChange={handleChange}
           error={errors.file}
+          fileName={formData.file ? formData.file.name : ""}
         />
       </>
     );

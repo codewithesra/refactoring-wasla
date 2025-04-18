@@ -1,0 +1,30 @@
+export const studentDefaultValues = {
+  accountType: "student",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  firstName: "",
+  lastName: "",
+  birthDate: "",
+  gender: "",
+  major: "",
+  startingDate: "",
+  expectedGradDate: "",
+  country: "",
+  studentSkills: [],
+  studentCV: "",
+  studentBio: "",
+};
+
+export const providerDefaultValues = {
+  accountType: "provider",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  name: "",
+  estDate: "",
+  location: "",
+  industry: "",
+  about: "",
+  file: null,
+};

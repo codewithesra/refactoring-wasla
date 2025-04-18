@@ -8,6 +8,19 @@ import {
   ProviderStepThreeSchema,
 } from "../utils/SignupValidation";
 
+const schemaMap = {
+  student: {
+    1: StepOneSchema,
+    2: StudentStepTwoSchema,
+    3: StudentStepThreeSchema,
+  },
+  provider: {
+    1: StepOneSchema,
+    2: ProviderStepTwoSchema,
+    3: ProviderStepThreeSchema,
+  },
+};
+
 export function useStepper(
   initialStep = 1,
   maxSteps = null,
@@ -19,31 +32,9 @@ export function useStepper(
   const isFirstStep = currentStep === 1;
   const isLastStep = maxSteps ? currentStep === maxSteps : false;
 
-  // Adjust the schema based on accountType
+  // الحصول على السكيمة المناسبة
   const getSchemaForStep = (step) => {
-    if (accountType === "student") {
-      switch (step) {
-        case 1:
-          return StepOneSchema;
-        case 2:
-          return StudentStepTwoSchema;
-        case 3:
-          return StudentStepThreeSchema;
-        default:
-          return yup.object().shape({});
-      }
-    } else if (accountType === "provider") {
-      switch (step) {
-        case 1:
-          return StepOneSchema; // Assuming StepOneSchema is shared
-        case 2:
-          return ProviderStepTwoSchema;
-        case 3:
-          return ProviderStepThreeSchema;
-        default:
-          return yup.object().shape({});
-      }
-    }
+    return schemaMap[accountType]?.[step] || yup.object().shape({});
   };
 
   const validateStep = useCallback(

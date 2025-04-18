@@ -1,12 +1,12 @@
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import StudentForm from "./components/4_template/StudentForm";
+import Signup from "./components/4_templates/Singup";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<StudentForm />} />
+        <Route path="/" element={<Signup />} />
       </Routes>
     </BrowserRouter>
   );

@@ -4,9 +4,11 @@ import TextInput from "../2_molecules/FormInputs/TextInput";
 import SelectInput from "../2_molecules/FormInputs/SelectInput";
 import { DateInput } from "../2_molecules/FormInputs/DateInput";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
+import { useCountries } from "../../api/FormApi";
 
 const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
+  const { countries, loading, error } = useCountries();
 
   if (currentStep === 2) {
     return (
@@ -17,7 +19,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            placeholder="enter your firstName"
+            placeholder="enter your first Name"
             error={errors.firstName}
           />
           <TextInput
@@ -25,7 +27,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            placeholder="enter your lastName"
+            placeholder="enter your last Name"
             error={errors.lastName}
           />
         </FieldsContainer>
@@ -65,13 +67,10 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             name="country"
             value={formData.country}
             onChange={handleChange}
-            placeholder="choose a country"
-            options={[
-              { value: "1", label: "place 1" },
-              { value: "2", label: "place 2" },
-              { value: "3", label: "place 3" },
-            ]}
+            placeholder={loading ? "loading countries ..." : "choose a country"}
+            options={countries}
             error={errors.country}
+            apiError={error ? "unable to load " : null}
           />
           <DateInput
             label="birth date"

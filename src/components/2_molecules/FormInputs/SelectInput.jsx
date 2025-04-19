@@ -9,6 +9,7 @@ const SelectInput = ({
   placeholder,
   isMulti = false,
   error,
+  apiError,
 }) => {
   const handleChange = (selectedOption) => {
     const fakeEvent = {
@@ -30,6 +31,11 @@ const SelectInput = ({
     }
   };
 
+  const showPlaceholder =
+    (!value || (Array.isArray(value) && value.length === 0)) && apiError
+      ? apiError
+      : placeholder;
+
   return (
     <div className="mb-4">
       <label htmlFor={name} className="font-bold text-gray-800 mb-2 block">
@@ -42,26 +48,41 @@ const SelectInput = ({
         value={getValue()}
         onChange={handleChange}
         options={options}
-        placeholder={placeholder}
+        placeholder={showPlaceholder}
         isMulti={isMulti}
         classNamePrefix="react-select"
         styles={{
           control: (base, state) => ({
             ...base,
-            borderColor: error ? "#f56565" : base.borderColor,
-            boxShadow: error
-              ? "0 0 0 1px #f56565"
-              : state.isFocused
-              ? "0 0 0 1px #3182ce"
-              : base.boxShadow,
+            borderColor: apiError ? "#f87171" : base.borderColor,
             "&:hover": {
-              borderColor: error ? "#f56565" : "#3182ce",
+              borderColor: apiError ? "#f87171" : base.borderColor,
             },
+            boxShadow: state.isFocused
+              ? apiError
+                ? "0 0 0 1px #f87171"
+                : "0 0 0 1px #2684FF"
+              : base.boxShadow,
+          }),
+          placeholder: (base) => ({
+            ...base,
+            color: apiError ? "#f87171" : base.color,
+          }),
+          dropdownIndicator: (base) => ({
+            ...base,
+            color: apiError ? "#f87171" : base.color,
+            "&:hover": {
+              color: apiError ? "#f87171" : base.color,
+            },
+          }),
+          indicatorSeparator: (base) => ({
+            ...base,
+            backgroundColor: apiError ? "#f87171" : base.backgroundColor,
           }),
         }}
       />
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && <p className="text-red-500 text-sm">{error || apiError}</p>}
     </div>
   );
 };

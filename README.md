@@ -7,6 +7,7 @@ This project involves building a multi-step signup form with reusable input comp
 - Vite
 - TailwindCSS
 - Yup (for form validation)
+- React-Query 
 
 ## Github Repositary Link
 

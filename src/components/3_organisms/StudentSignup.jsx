@@ -8,8 +8,16 @@ import { useCountries, useSkills } from "../../api/FormApi";
 
 const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
-  const { data: countries = [], isLoading, isError } = useCountries();
-  const { data: skills = [] } = useSkills();
+  const {
+    data: countries = [],
+    isLoading: countriesLoading,
+    isError: countriesError,
+  } = useCountries();
+  const {
+    data: skills = [],
+    isLoading: skillsLoading,
+    isError: skillsError,
+  } = useSkills();
 
   if (currentStep === 2) {
     return (
@@ -69,11 +77,11 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             value={formData.country}
             onChange={handleChange}
             placeholder={
-              isLoading ? "loading countries ..." : "choose a country"
+              countriesLoading ? "loading countries ..." : "choose a country"
             }
             options={countries}
             error={errors.country}
-            apiError={isError ? "unable to load " : null}
+            apiError={countriesError ? "unable to load " : null}
           />
           <DateInput
             label="birth date"
@@ -109,9 +117,13 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
           name="studentSkills"
           value={formData.studentSkills}
           onChange={handleChange}
+          placeholder={
+            skillsLoading ? "loading skills ..." : "choose at least one skill"
+          }
           options={skills}
           isMulti={true}
           error={errors.studentSkills}
+          apiError={skillsError ? "unable to load" : null}
         />
 
         <TextInput

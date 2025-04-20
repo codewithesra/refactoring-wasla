@@ -14,6 +14,7 @@ export const useCountries = () => {
         value: country.name.common,
       }));
     },
+    retry: 2,
   });
 };
 
@@ -36,5 +37,6 @@ export const useSkills = () => {
         value: skill,
       }));
     },
+    retry: 2,
   });
 };

@@ -8,7 +8,7 @@ import { useCountries } from "../../api/FormApi";
 
 const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
-  const { countries, loading, error } = useCountries();
+  const { data: countries = [], isLoading, isError } = useCountries();
 
   if (currentStep === 2) {
     return (
@@ -67,10 +67,12 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             name="country"
             value={formData.country}
             onChange={handleChange}
-            placeholder={loading ? "loading countries ..." : "choose a country"}
+            placeholder={
+              isLoading ? "loading countries ..." : "choose a country"
+            }
             options={countries}
             error={errors.country}
-            apiError={error ? "unable to load " : null}
+            apiError={isError ? "unable to load " : null}
           />
           <DateInput
             label="birth date"

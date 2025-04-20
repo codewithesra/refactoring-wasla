@@ -40,3 +40,9 @@ export const useSkills = () => {
     retry: 2,
   });
 };
+
+export const submitFormData = async (data) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(data), 1000);
+  });
+};

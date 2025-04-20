@@ -7,7 +7,8 @@ const Signup = () => {
       <div className="flex flex-col justify-center my-5 min-h-screen">
         <FormTitle
           title="refactoring wasla"
-          description="task #1: forms and reusability"
+          description="phase 2: improve user experience
+"
         />
         <SignupForm />
       </div>

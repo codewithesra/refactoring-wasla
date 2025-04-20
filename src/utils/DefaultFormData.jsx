@@ -23,7 +23,7 @@ export const providerDefaultValues = {
   confirmPassword: "",
   name: "",
   estDate: "",
-  location: "",
+  country: "",
   industry: "",
   about: "",
   file: null,

@@ -66,10 +66,7 @@ export const ProviderStepTwoSchema = yup.object({
     .max(new Date(), "Establishment date cannot be in the future")
     .required("Establishment date is required"),
 
-  location: yup
-    .string()
-    .oneOf(["1", "2", "3"], "Invalid location selected")
-    .required("Location is required"),
+  country: yup.string().required("country is required"),
 
   industry: yup
     .string()

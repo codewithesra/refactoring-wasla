@@ -14,8 +14,9 @@ export const HandleChange = (e, setFormData) => {
   }
 };
 
-export const HandleSubmit = (e, formData, onSubmit) => {
-  e.preventDefault();
-  if (onSubmit) onSubmit(formData);
-  console.log(formData);
-};
+// commented out now that we are using useMutation to submit the form
+// export const HandleSubmit = (e, formData, onSubmit) => {
+//   e.preventDefault();
+//   if (onSubmit) onSubmit(formData);
+//   console.log(formData);
+// };

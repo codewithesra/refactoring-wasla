@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   SignupFormContainer,
   FieldsContainer,
@@ -9,7 +9,7 @@ import StudentSignup from "./StudentSignup";
 import TextInput from "../2_molecules/FormInputs/TextInput";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 import StepIndicator from "../2_molecules/FormInputs/StepIndicator";
-import { HandleChange, HandleSubmit } from "../../utils/HelperFunctions";
+import { HandleChange } from "../../utils/HelperFunctions";
 import { useStepper } from "../../hooks/Stepper";
 import { HiAcademicCap } from "react-icons/hi";
 import { MdBusinessCenter } from "react-icons/md";
@@ -18,14 +18,24 @@ import {
   studentDefaultValues,
   providerDefaultValues,
 } from "../../utils/DefaultFormData";
+import { useMutation } from "@tanstack/react-query";
+import { submitFormData } from "../../api/FormApi";
 
-const SignupForm = ({ onSubmit }) => {
-  const [formData, setFormData] = useState({ accountType: "" });
+const SignupForm = () => {
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem("formData");
+    return savedData
+      ? { accountType: "", ...JSON.parse(savedData) }
+      : { accountType: "" };
+  });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
+
   const steps = formData.accountType
     ? ["account info", "personal details", "extra info"]
     : [];
+
+  const initialStep = parseInt(localStorage.getItem("currentStep")) || 1;
 
   const {
     currentStep,
@@ -36,16 +46,38 @@ const SignupForm = ({ onSubmit }) => {
     isLastStep,
     errors,
     validateStep,
-  } = useStepper(1, steps.length, formData.accountType);
+  } = useStepper(initialStep, steps.length, formData.accountType);
 
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+    localStorage.setItem("currentStep", currentStep.toString());
+  }, [formData, currentStep]);
+
+  const mutation = useMutation({
+    mutationFn: (formData) => submitFormData(formData),
+    onSuccess: () => {
+      setIsSubmitted(true);
+      resetStepper();
+    },
+    onError: (error) => {
+      console.error("Submission failed:", error);
+    },
+  });
   const formSubmit = async (e) => {
     e.preventDefault();
+    if (mutation.isPending) return;
     const { isValid } = await validateStep(currentStep, formData);
     if (isValid) {
       if (isLastStep) {
-        HandleSubmit(e, formData, onSubmit);
-        setIsSubmitted(true);
-        resetStepper();
+        mutation.mutate(formData, {
+          onSuccess: () => {
+            setIsSubmitted(true);
+            resetStepper();
+          },
+          onError: (error) => {
+            console.error("submission failed:", error);
+          },
+        });
       } else {
         handleNext(formData);
       }
@@ -56,8 +88,8 @@ const SignupForm = ({ onSubmit }) => {
     setFormData({ accountType: "" });
     setIsSubmitted(false);
     resetStepper();
+    localStorage.clear();
   };
-
   return (
     <SignupFormContainer>
       <form onSubmit={formSubmit} noValidate>
@@ -78,7 +110,7 @@ const SignupForm = ({ onSubmit }) => {
             <div className="flex justify-center gap-4">
               <ConfirmBtn type="button" onClick={resetForm}>
                 make a new account
-              </ConfirmBtn>{" "}
+              </ConfirmBtn>
             </div>
           </div>
         ) : (
@@ -181,8 +213,16 @@ const SignupForm = ({ onSubmit }) => {
               </div>
               <div className="ml-auto">
                 {formData.accountType && (
-                  <ConfirmBtn type="submit" className="mr-auto">
-                    {isLastStep ? "Sign Up" : "Next"}
+                  <ConfirmBtn
+                    type="submit"
+                    className="mr-auto"
+                    disabled={mutation.isPending}
+                  >
+                    {isLastStep
+                      ? mutation.isPending
+                        ? "Signing Up..."
+                        : "Sign Up"
+                      : "Next"}
                   </ConfirmBtn>
                 )}
               </div>

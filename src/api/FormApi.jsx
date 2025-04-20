@@ -7,15 +7,34 @@ export const useCountries = () => {
     queryFn: async () => {
       console.log("testing how many times the api gets called");
       const res = await axios.get(
-        "https://restcountries.com/v3.1/all?fields=nae,cca2"
+        "https://restcountries.com/v3.1/all?fields=name,cca2"
       );
       return res.data.map((country) => ({
         label: country.name.common,
         value: country.name.common,
       }));
     },
-    staleTime: 1000 * 60 * 60,
-    cacheTime: 1000 * 60 * 60 * 24,
-    retry: 2,
+  });
+};
+
+export const useSkills = () => {
+  const skillsKey = import.meta.env.VITE_SKILLS_API_KEY;
+  return useQuery({
+    queryKey: ["skills"],
+    queryFn: async () => {
+      console.log("fetching skills");
+      const res = await axios.get(
+        "https://api.apilayer.com/skills?q=development",
+        {
+          headers: {
+            apikey: skillsKey,
+          },
+        }
+      );
+      return res.data.map((skill) => ({
+        label: skill,
+        value: skill,
+      }));
+    },
   });
 };

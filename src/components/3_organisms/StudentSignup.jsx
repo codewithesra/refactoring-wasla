@@ -4,18 +4,19 @@ import TextInput from "../2_molecules/FormInputs/TextInput";
 import SelectInput from "../2_molecules/FormInputs/SelectInput";
 import { DateInput } from "../2_molecules/FormInputs/DateInput";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
-import { useCountries } from "../../api/FormApi";
+import { useCountries, useSkills } from "../../api/FormApi";
 
 const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
   const { data: countries = [], isLoading, isError } = useCountries();
+  const { data: skills = [] } = useSkills();
 
   if (currentStep === 2) {
     return (
       <>
         <FieldsContainer>
           <TextInput
-            label="firstName"
+            label="first name"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
@@ -23,7 +24,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             error={errors.firstName}
           />
           <TextInput
-            label="lastName"
+            label="last name"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
@@ -108,11 +109,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
           name="studentSkills"
           value={formData.studentSkills}
           onChange={handleChange}
-          options={[
-            { value: "1", label: "skill 1" },
-            { value: "2", label: "skill 2" },
-            { value: "3", label: "skill 3" },
-          ]}
+          options={skills}
           isMulti={true}
           error={errors.studentSkills}
         />

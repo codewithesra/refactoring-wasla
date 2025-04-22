@@ -60,6 +60,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
               { label: "male", value: "male" },
               { label: "female", value: "female" },
             ]}
+            centered={true}
             error={errors.gender}
           />
         </FieldsContainer>

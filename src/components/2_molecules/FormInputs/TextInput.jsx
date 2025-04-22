@@ -21,7 +21,7 @@ const TextInput = ({
         placeholder={placeholder}
         className={`border ${
           error ? "border-red-500" : "border-gray-300"
-        } rounded px-4 py-2 w-full mb-3`}
+        } rounded px-4 py-2 w-full mb-2`}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>

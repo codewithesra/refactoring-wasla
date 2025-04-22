@@ -6,8 +6,10 @@ const RadioGroup = ({
   options,
   layout,
   error,
+  centered,
 }) => {
   const isHorizontal = layout === "horizontal";
+  const isCentered = centered;
 
   return (
     <div>
@@ -18,7 +20,7 @@ const RadioGroup = ({
       <div
         className={`mb-3 ${
           isHorizontal ? "flex gap-4" : "flex flex-col space-y-2"
-        }`}
+        } ${isCentered ? "justify-center" : ""}`} // Apply centering if `centered` is true
       >
         {options.map((option, index) => {
           const isSelected = value === option.value;

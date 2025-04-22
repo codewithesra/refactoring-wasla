@@ -128,7 +128,7 @@ const SignupForm = () => {
                 <div className="flex flex-col items-center">
                   <RadioGroup
                     label={
-                      <span className="block text-center w-full">
+                      <span className="block text-center w-full my-5">
                         Choose Account Type
                       </span>
                     }

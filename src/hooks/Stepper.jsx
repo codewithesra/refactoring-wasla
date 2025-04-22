@@ -24,7 +24,7 @@ const schemaMap = {
 export function useStepper(
   initialStep = 1,
   maxSteps = null,
-  accountType = "student"
+  accountType = null
 ) {
   const [currentStep, setCurrentStep] = useState(initialStep);
   const [errors, setErrors] = useState({});
@@ -74,9 +74,9 @@ export function useStepper(
   }, [currentStep]);
 
   const resetStepper = useCallback(() => {
-    setCurrentStep(initialStep);
+    setCurrentStep(1);
     setErrors({});
-  }, [initialStep]);
+  }, []);
 
   return {
     currentStep,

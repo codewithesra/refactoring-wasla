@@ -3,6 +3,7 @@ import {
   SignupFormContainer,
   FieldsContainer,
 } from "../1_atoms/SignupFormContainer";
+
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
 import StudentSignup from "./StudentSignup";
@@ -31,9 +32,12 @@ const SignupForm = () => {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const steps = formData.accountType
-    ? ["account info", "personal details", "extra info"]
-    : [];
+  const stepMap = {
+    student: ["account info", "personal details", "extra info"],
+    provider: ["account info", "provider details", "documents"],
+  };
+
+  const steps = stepMap[formData.accountType] || [];
 
   const initialStep = parseInt(localStorage.getItem("currentStep")) || 1;
 
@@ -90,14 +94,18 @@ const SignupForm = () => {
     resetStepper();
     localStorage.clear();
   };
+
   return (
     <SignupFormContainer>
       <form onSubmit={formSubmit} noValidate>
-        <StepIndicator
-          steps={steps}
-          currentStep={currentStep}
-          isSubmitted={isSubmitted}
-        />
+        {formData.accountType && (
+          <StepIndicator
+            steps={steps}
+            currentStep={currentStep}
+            isSubmitted={isSubmitted}
+          />
+        )}
+
         {isSubmitted ? (
           <div className="text-center p-4">
             <h2 className="text-2xl font-semibold mb-4 text-center">
@@ -109,13 +117,13 @@ const SignupForm = () => {
             <p className="mb-6">what would you like to do?</p>
             <div className="flex justify-center gap-4">
               <ConfirmBtn type="button" onClick={resetForm}>
-                make a new account
+                create a new account
               </ConfirmBtn>
             </div>
           </div>
         ) : (
           <>
-            {currentStep === 1 && !formData.accountType && (
+            {!formData.accountType && (
               <div className="flex justify-center">
                 <div className="flex flex-col items-center">
                   <RadioGroup
@@ -204,25 +212,31 @@ const SignupForm = () => {
             )}
 
             <div className="flex mt-6">
-              <div className="mr-auto">
-                {!isFirstStep && (
-                  <GreyBtn type="button" onClick={handleBack}>
+              {formData.accountType && (
+                <div className="mr-auto">
+                  <GreyBtn
+                    type="button"
+                    onClick={() => {
+                      if (isFirstStep) {
+                        setFormData({ accountType: "" });
+                      } else {
+                        handleBack();
+                      }
+                    }}
+                  >
                     Back
                   </GreyBtn>
-                )}
-              </div>
+                </div>
+              )}
               <div className="ml-auto">
                 {formData.accountType && (
-                  <ConfirmBtn
-                    type="submit"
-                    className="mr-auto"
-                    disabled={mutation.isPending}
-                  >
+                  <ConfirmBtn type="submit" disabled={mutation.isPending}>
                     {isLastStep
                       ? mutation.isPending
-                        ? "Signing Up..."
+                        ? "Signing Up"
                         : "Sign Up"
                       : "Next"}
+                    {console.log(currentStep)}
                   </ConfirmBtn>
                 )}
               </div>

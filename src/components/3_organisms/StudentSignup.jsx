@@ -5,6 +5,7 @@ import SelectInput from "../2_molecules/FormInputs/SelectInput";
 import { DateInput } from "../2_molecules/FormInputs/DateInput";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 import { useCountries, useSkills } from "../../api/FormApi";
+import { TaskSquare } from "iconsax-reactjs";
 
 const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
@@ -51,7 +52,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             error={errors.major}
           />
           <RadioGroup
-            label="choose your gender"
+            label="gender"
             name="gender"
             value={formData.gender}
             onChange={handleChange}
@@ -73,7 +74,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
       <>
         <FieldsContainer>
           <SelectInput
-            label="choose a country"
+            label="country"
             name="country"
             value={formData.country}
             onChange={handleChange}
@@ -114,7 +115,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
         </FieldsContainer>
 
         <SelectInput
-          label="choose your skills"
+          label="skills"
           name="studentSkills"
           value={formData.studentSkills}
           onChange={handleChange}
@@ -123,6 +124,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
           }
           options={skills}
           isMulti={true}
+          icon={<TaskSquare size="32" color="#2ccce4" />}
           error={errors.studentSkills}
           apiError={skillsError ? "unable to load" : null}
         />

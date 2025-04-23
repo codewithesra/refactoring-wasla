@@ -1,7 +1,7 @@
 export const SignupFormContainer = ({ children }) => {
   return (
     <div className="flex justify-center items-center">
-      <div className="max-w-xl w-full bg-white p-5 rounded-lg shadow-md mx-4 sm:mx-0">
+      <div className="max-w-xl w-full bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text p-5 rounded-lg shadow-md mx-4 sm:mx-0">
         {children}
       </div>
     </div>

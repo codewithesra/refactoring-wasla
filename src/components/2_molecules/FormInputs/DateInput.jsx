@@ -9,7 +9,10 @@ export const DateInput = ({
 }) => {
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="font-bold text-gray-800 mb-2 block">
+      <label
+        htmlFor={name}
+        className="font-bold text-light-text mb-2 block dark:text-dark-text"
+      >
         {label}
       </label>
       <input
@@ -19,9 +22,12 @@ export const DateInput = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`border ${
-          error ? "border-red-500" : "border-gray-300"
-        } rounded px-4 py-2 w-full`}
+        className={`rounded px-4 py-2 w-full bg-light-card text-light-text dark:bg-dark-card dark:text-dark-text
+          ${
+            error
+              ? "border border-red-500"
+              : "border border-light-border dark:border-dark-border focus:border-light-primary dark:focus:border-dark-primary"
+          }`}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>

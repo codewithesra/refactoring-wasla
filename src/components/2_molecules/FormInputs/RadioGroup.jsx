@@ -13,14 +13,17 @@ const RadioGroup = ({
 
   return (
     <div>
-      <label htmlFor={name} className="font-bold text-gray-800 mb-2 block">
+      <label
+        htmlFor={name}
+        className="font-bold text-light-text mb-2 block dark:text-dark-text"
+      >
         {label}
       </label>
 
       <div
         className={`mb-3 ${
           isHorizontal ? "flex gap-4" : "flex flex-col space-y-2"
-        } ${isCentered ? "justify-center" : ""}`} // Apply centering if `centered` is true
+        } ${isCentered ? "justify-center" : ""}`}
       >
         {options.map((option, index) => {
           const isSelected = value === option.value;
@@ -32,8 +35,8 @@ const RadioGroup = ({
               className={`cursor-pointer border rounded-xl px-6 py-2 flex items-center gap-3 transition-all duration-200
                 ${
                   isSelected
-                    ? "border-blue-500 bg-blue-50"
-                    : "border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                    ? "border-light-primary bg-light-background dark:border-dark-primary dark:bg-dark-card"
+                    : "border-light-border hover:border-light-primary hover:bg-light-background dark:border-dark-border dark:hover:border-dark-primary"
                 }`}
             >
               <input
@@ -47,10 +50,14 @@ const RadioGroup = ({
               />
 
               {option.icon && (
-                <span className="text-2xl text-blue-500">{option.icon}</span>
+                <span className="text-2xl text-light-primary dark:text-dark-primary">
+                  {option.icon}
+                </span>
               )}
 
-              <span className="text-gray-800 font-medium">{option.label}</span>
+              <span className="text-light-text font-medium dark:text-dark-text">
+                {option.label}
+              </span>
             </label>
           );
         })}

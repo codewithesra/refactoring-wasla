@@ -8,43 +8,40 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
 
   return (
     <div className="flex justify-center mb-6 overflow-x-auto">
-      {steps?.map((step, i) => (
-        <div
-          key={i}
-          className={`relative flex flex-col justify-center items-center mx-4 ${
-            currentStep === i + 1 ? "text-sky-600" : ""
-          } ${
-            i + 1 < currentStep || isSubmitted
-              ? "text-green-600"
-              : "text-gray-500"
-          }`}
-        >
+      {steps?.map((step, i) => {
+        const isCompleted = i + 1 < currentStep || isSubmitted;
+        const isActive = currentStep === i + 1;
+
+        return (
           <div
-            className={`w-10 h-10 flex items-center justify-center z-10 relative rounded-full font-semibold text-white ${
-              i + 1 < currentStep || isSubmitted
-                ? "bg-green-600"
-                : currentStep === i + 1
-                ? "bg-sky-600"
-                : "bg-slate-700"
-            }`}
+            key={i}
+            className={`relative flex flex-col justify-center items-center mx-4 transition-colors duration-300
+              ${isActive ? "text-light-primary dark:text-dark-primary" : ""}
+              ${isCompleted ? "text-green-600" : "text-gray-500"}`}
           >
-            {i + 1 < currentStep || isSubmitted ? (
-              <TiTick size={24} />
-            ) : (
-              <span className="text-center">{i + 1}</span>
-            )}
+            <div
+              className={`w-10 h-10 flex items-center justify-center z-10 relative rounded-full font-semibold text-white
+                ${
+                  isCompleted
+                    ? "bg-green-600"
+                    : isActive
+                    ? "bg-light-primary dark:bg-dark-primary"
+                    : "bg-slate-700"
+                }`}
+            >
+              {isCompleted ? <TiTick size={24} /> : <span>{i + 1}</span>}
+            </div>
+            <p
+              className={`mt-2 text-center ${
+                isCompleted ? "text-gray-800 dark:text-gray-200" : ""
+              }`}
+            >
+              {step}
+            </p>
           </div>
-          <p
-            className={`mt-2 ${
-              i + 1 < currentStep || isSubmitted ? "text-gray-800" : ""
-            } text-center`}
-          >
-            {step}
-          </p>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
-
 export default StepIndicator;

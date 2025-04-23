@@ -1,6 +1,6 @@
 const TextInput = ({
   label,
-  type,
+  type = "text",
   name,
   value,
   placeholder,
@@ -8,8 +8,11 @@ const TextInput = ({
   error,
 }) => {
   return (
-    <div>
-      <label htmlFor={name} className="font-bold text-gray-800 mb-2 block">
+    <div className="mb-4">
+      <label
+        htmlFor={name}
+        className="font-bold text-light-text dark:text-dark-text mb-2 block"
+      >
         {label}
       </label>
       <input
@@ -19,9 +22,12 @@ const TextInput = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`border ${
-          error ? "border-red-500" : "border-gray-300"
-        } rounded px-4 py-2 w-full mb-2`}
+        className={`rounded px-4 py-2 w-full mb-2 bg-light-card text-light-text dark:bg-dark-card dark:text-dark-text
+          ${
+            error
+              ? "border-red-500"
+              : "border-light-border dark:border-dark-border"
+          } border`}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>

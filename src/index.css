@@ -7,10 +7,11 @@
 @layer base {
   html {
     font-family: "Poppins", sans-serif;
+    @apply transition-colors duration-300;
   }
 
   body {
-    background-color: #f6f6f6;
+    @apply min-h-screen bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors duration-300;
   }
 }
 

@@ -38,7 +38,10 @@ const SelectInput = ({
 
   return (
     <div className="mb-4">
-      <label htmlFor={name} className="font-bold text-gray-800 mb-2 block">
+      <label
+        htmlFor={name}
+        className="font-bold text-light-text mb-2 block dark:text-dark-text"
+      >
         {label}
       </label>
 
@@ -54,30 +57,64 @@ const SelectInput = ({
         styles={{
           control: (base, state) => ({
             ...base,
-            borderColor: apiError ? "#f87171" : base.borderColor,
-            "&:hover": {
-              borderColor: apiError ? "#f87171" : base.borderColor,
-            },
+            backgroundColor: state.selectProps.menuIsOpen
+              ? "var(--tw-bg-light-card)"
+              : "var(--tw-bg-light-card)",
+            borderColor: apiError
+              ? "#f87171" // red-400
+              : state.isFocused
+              ? "#2563eb" // light.primary
+              : "#e5e7eb", // light.border
             boxShadow: state.isFocused
               ? apiError
                 ? "0 0 0 1px #f87171"
-                : "0 0 0 1px #2684FF"
-              : base.boxShadow,
+                : "0 0 0 1px #2563eb"
+              : "none",
+            "&:hover": {
+              borderColor: apiError ? "#f87171" : "#2563eb",
+            },
+            color: "#111827", // light.text
+          }),
+          singleValue: (base) => ({
+            ...base,
+            color: "#111827", // light.text
+          }),
+          multiValue: (base) => ({
+            ...base,
+            backgroundColor: "#2563eb22", // light.primary with alpha
+          }),
+          multiValueLabel: (base) => ({
+            ...base,
+            color: "#2563eb", // light.primary
+          }),
+          multiValueRemove: (base) => ({
+            ...base,
+            color: "#2563eb",
+            ":hover": {
+              backgroundColor: "#2563eb33",
+              color: "#1d4ed8",
+            },
           }),
           placeholder: (base) => ({
             ...base,
-            color: apiError ? "#f87171" : base.color,
+            color: apiError ? "#f87171" : "#9ca3af", // gray-400
           }),
           dropdownIndicator: (base) => ({
             ...base,
-            color: apiError ? "#f87171" : base.color,
+            color: apiError ? "#f87171" : "#6b7280", // gray-500
             "&:hover": {
-              color: apiError ? "#f87171" : base.color,
+              color: apiError ? "#f87171" : "#2563eb",
             },
           }),
           indicatorSeparator: (base) => ({
             ...base,
-            backgroundColor: apiError ? "#f87171" : base.backgroundColor,
+            backgroundColor: apiError ? "#f87171" : "#e5e7eb",
+          }),
+          menu: (base) => ({
+            ...base,
+            backgroundColor: "#ffffff",
+            color: "#111827",
+            zIndex: 50,
           }),
         }}
       />

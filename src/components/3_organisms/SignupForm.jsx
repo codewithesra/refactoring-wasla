@@ -4,7 +4,6 @@ import {
   FieldsContainer,
 } from "../1_atoms/SignupFormContainer";
 
-import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
 import StudentSignup from "./StudentSignup";
 import TextInput from "../2_molecules/FormInputs/TextInput";
@@ -22,7 +21,7 @@ import {
 } from "../../utils/DefaultFormData";
 import { useMutation } from "@tanstack/react-query";
 import { submitFormData } from "../../api/FormApi";
-
+import { RiVerifiedBadgeFill } from "react-icons/ri";
 const SignupForm = () => {
   const [formData, setFormData] = useState(() => {
     const savedData = localStorage.getItem("formData");

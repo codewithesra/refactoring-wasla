@@ -10,6 +10,7 @@ import StudentSignup from "./StudentSignup";
 import TextInput from "../2_molecules/FormInputs/TextInput";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 import StepIndicator from "../2_molecules/FormInputs/StepIndicator";
+import PasswordInput from "../2_molecules/FormInputs/PasswordInput";
 import { HandleChange } from "../../utils/HelperFunctions";
 import { useStepper } from "../../hooks/Stepper";
 import { HiAcademicCap } from "react-icons/hi";
@@ -172,7 +173,7 @@ const SignupForm = () => {
                   error={errors.email}
                 />
                 <FieldsContainer>
-                  <TextInput
+                  <PasswordInput
                     label="password"
                     type="password"
                     name="password"
@@ -181,7 +182,7 @@ const SignupForm = () => {
                     placeholder="enter your password"
                     error={errors.password}
                   />
-                  <TextInput
+                  <PasswordInput
                     label="confirm Password"
                     type="password"
                     name="confirmPassword"

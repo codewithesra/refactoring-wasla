@@ -36,7 +36,7 @@ const RadioGroup = ({
                 ${
                   isSelected
                     ? "border-light-primary bg-light-background dark:border-dark-primary dark:bg-dark-card"
-                    : "border-light-border hover:border-light-primary hover:bg-light-background dark:border-dark-border dark:hover:border-dark-primary"
+                    : "border-light-border hover:border-light-primary dark:border-dark-border dark:hover:border-dark-primary"
                 }`}
             >
               <input

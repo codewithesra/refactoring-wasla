@@ -61,10 +61,10 @@ const SelectInput = ({
               ? "var(--tw-bg-light-card)"
               : "var(--tw-bg-light-card)",
             borderColor: apiError
-              ? "#f87171" // red-400
+              ? "#f87171"
               : state.isFocused
-              ? "#2563eb" // light.primary
-              : "#e5e7eb", // light.border
+              ? "#2563eb"
+              : "#e5e7eb",
             boxShadow: state.isFocused
               ? apiError
                 ? "0 0 0 1px #f87171"
@@ -73,19 +73,19 @@ const SelectInput = ({
             "&:hover": {
               borderColor: apiError ? "#f87171" : "#2563eb",
             },
-            color: "#111827", // light.text
+            color: "#111827",
           }),
           singleValue: (base) => ({
             ...base,
-            color: "#111827", // light.text
+            color: "#111827",
           }),
           multiValue: (base) => ({
             ...base,
-            backgroundColor: "#2563eb22", // light.primary with alpha
+            backgroundColor: "#2563eb22",
           }),
           multiValueLabel: (base) => ({
             ...base,
-            color: "#2563eb", // light.primary
+            color: "#2563eb",
           }),
           multiValueRemove: (base) => ({
             ...base,
@@ -97,11 +97,11 @@ const SelectInput = ({
           }),
           placeholder: (base) => ({
             ...base,
-            color: apiError ? "#f87171" : "#9ca3af", // gray-400
+            color: apiError ? "#f87171" : "#9ca3af",
           }),
           dropdownIndicator: (base) => ({
             ...base,
-            color: apiError ? "#f87171" : "#6b7280", // gray-500
+            color: apiError ? "#f87171" : "#6b7280",
             "&:hover": {
               color: apiError ? "#f87171" : "#2563eb",
             },

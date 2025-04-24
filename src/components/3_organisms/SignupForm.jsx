@@ -1,19 +1,13 @@
 import { useState, useEffect } from "react";
-import {
-  SignupFormContainer,
-  FieldsContainer,
-} from "../1_atoms/SignupFormContainer";
+import { SignupFormContainer } from "../1_atoms/SignupFormContainer";
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
-import StudentSignup from "./StudentSignup";
-import TextInput from "../2_molecules/FormInputs/TextInput";
+import StudentSignup from "./SignupComponents/StudentSignup";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 import StepIndicator from "../2_molecules/FormInputs/StepIndicator";
-import PasswordInput from "../2_molecules/FormInputs/PasswordInput";
-import { HandleChange } from "../../utils/HelperFunctions";
 import { useStepper } from "../../hooks/Stepper";
 import { HiAcademicCap } from "react-icons/hi";
 import { MdBusinessCenter } from "react-icons/md";
-import ProviderSignup from "./ProviderSignup";
+import ProviderSignup from "./SignupComponents/ProviderSignup";
 import {
   studentDefaultValues,
   providerDefaultValues,
@@ -21,6 +15,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { submitFormData } from "../../api/FormApi";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
+import EmailSignup from "./SignupComponents/EmailSignup";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState(() => {
@@ -161,37 +156,12 @@ const SignupForm = () => {
             )}
 
             {currentStep === 1 && formData.accountType && (
-              <>
-                <TextInput
-                  label="email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={(e) => HandleChange(e, setFormData)}
-                  placeholder="enter your email"
-                  error={errors.email}
-                />
-                <FieldsContainer>
-                  <PasswordInput
-                    label="password"
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="enter your password"
-                    error={errors.password}
-                  />
-                  <PasswordInput
-                    label="confirm Password"
-                    type="password"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={(e) => HandleChange(e, setFormData)}
-                    placeholder="confirm your password"
-                    error={errors.confirmPassword}
-                  />
-                </FieldsContainer>
-              </>
+              <EmailSignup
+                s
+                formData={formData}
+                setFormData={setFormData}
+                errors={errors}
+              />
             )}
 
             {formData.accountType === "student" && (

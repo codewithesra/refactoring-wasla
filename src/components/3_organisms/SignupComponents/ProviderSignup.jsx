@@ -1,10 +1,10 @@
-import { HandleChange } from "../../utils/HelperFunctions";
-import { FieldsContainer } from "../1_atoms/SignupFormContainer";
-import TextInput from "../2_molecules/FormInputs/TextInput";
-import SelectInput from "../2_molecules/FormInputs/SelectInput";
-import { DateInput } from "../2_molecules/FormInputs/DateInput";
-import FileInput from "../2_molecules/FormInputs/FileInput";
-import { useCountries } from "../../api/FormApi";
+import { HandleChange } from "../../../utils/HelperFunctions";
+import { FieldsContainer } from "../../1_atoms/SignupFormContainer";
+import TextInput from "../../2_molecules/FormInputs/TextInput";
+import SelectInput from "../../2_molecules/FormInputs/SelectInput";
+import { DateInput } from "../../2_molecules/FormInputs/DateInput";
+import FileInput from "../../2_molecules/FormInputs/FileInput";
+import { useCountries } from "../../../api/FormApi";
 
 const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);

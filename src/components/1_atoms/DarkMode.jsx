@@ -30,7 +30,7 @@ const DarkModeToggle = () => {
     >
       <span
         className={`w-5 h-5 rounded-full bg-yellow-500 dark:bg-blue-500 flex items-center justify-center transform transition-transform duration-300 ${
-          isDarkMode ? "translate-x-[-2px]" : "translate-x-[18px]"
+          isDarkMode ? "translate-x-[-10px]" : "translate-x-[10px]"
         }`}
       >
         {isDarkMode ? (

@@ -1,14 +1,14 @@
 import SignupForm from "../3_organisms/SignupForm";
 import FormTitle from "../2_molecules/FormTitle";
+import Navbar from "../2_molecules/NavBar";
 
 const Signup = () => {
   return (
     <>
-      <div className="flex flex-col justify-center my-5 min-h-screen">
+      <div className="flex flex-col justify-center min-h-screen">
         <FormTitle
-          title="refactoring wasla"
-          description="phase 2: improve user experience
-"
+          title="phase #3"
+          description="using react-hook-forms and adding dark mode"
         />
         <SignupForm />
       </div>

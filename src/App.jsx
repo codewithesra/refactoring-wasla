@@ -1,7 +1,7 @@
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Signup from "./components/4_templates/Singup";
+import SignupPage from "./components/5_pages/SignupPage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -10,7 +10,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Signup />} />
+          <Route path="/" element={<SignupPage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

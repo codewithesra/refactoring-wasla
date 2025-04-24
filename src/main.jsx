@@ -7,6 +7,5 @@ import DarkModeToggle from "./components/1_atoms/DarkMode.jsx";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <App />
-    <DarkModeToggle />
   </StrictMode>
 );

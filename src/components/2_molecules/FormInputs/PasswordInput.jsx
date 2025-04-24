@@ -36,7 +36,6 @@ const PasswordInput = ({
                 : "border-light-border dark:border-dark-border"
             } border`}
         />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
         <button
           type="button"
           onClick={toggleVisibility}
@@ -46,6 +45,7 @@ const PasswordInput = ({
           {showPassword ? <FaRegEye size={18} /> : <FaRegEyeSlash size={18} />}
         </button>
       </div>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
     </div>
   );
 };

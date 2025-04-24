@@ -1,4 +1,5 @@
 import Select from "react-select";
+import ModeDetector from "../../../hooks/ModeDetector";
 
 const SelectInput = ({
   label,
@@ -11,6 +12,8 @@ const SelectInput = ({
   error,
   apiError,
 }) => {
+  const isDarkMode = ModeDetector();
+
   const handleChange = (selectedOption) => {
     const fakeEvent = {
       target: {
@@ -36,6 +39,8 @@ const SelectInput = ({
       ? apiError
       : placeholder;
 
+  console.log("Current mode is:", isDarkMode ? "dark" : "light");
+
   return (
     <div className="mb-4">
       <label
@@ -57,14 +62,14 @@ const SelectInput = ({
         styles={{
           control: (base, state) => ({
             ...base,
-            backgroundColor: state.selectProps.menuIsOpen
-              ? "var(--tw-bg-light-card)"
-              : "var(--tw-bg-light-card)",
+            backgroundColor: isDarkMode ? "#1F2937" : "#ffffff",
             borderColor: apiError
               ? "#f87171"
               : state.isFocused
               ? "#2563eb"
-              : "#e5e7eb",
+              : isDarkMode
+              ? "#374151"
+              : "#E5E7EB",
             boxShadow: state.isFocused
               ? apiError
                 ? "0 0 0 1px #f87171"
@@ -73,11 +78,37 @@ const SelectInput = ({
             "&:hover": {
               borderColor: apiError ? "#f87171" : "#2563eb",
             },
-            color: "#111827",
+            color: isDarkMode ? "#F9FAFB" : "#111827",
           }),
           singleValue: (base) => ({
             ...base,
-            color: "#111827",
+            color: isDarkMode ? "#F9FAFB" : "#111827",
+          }),
+          input: (base) => ({
+            ...base,
+            color: isDarkMode ? "#F9FAFB" : "#111827",
+          }),
+          menu: (base) => ({
+            ...base,
+            backgroundColor: isDarkMode ? "#1F2937" : "#ffffff",
+            color: isDarkMode ? "#F9FAFB" : "#111827",
+            zIndex: 50,
+          }),
+          option: (base, state) => ({
+            ...base,
+            backgroundColor: state.isSelected
+              ? "#2563eb"
+              : state.isFocused
+              ? isDarkMode
+                ? "#374151"
+                : "#E5E7EB"
+              : "transparent",
+            color: isDarkMode ? "#F9FAFB" : "#111827",
+            cursor: "pointer",
+          }),
+          placeholder: (base) => ({
+            ...base,
+            color: apiError ? "#f87171" : isDarkMode ? "#9CA3AF" : "#6B7280",
           }),
           multiValue: (base) => ({
             ...base,
@@ -95,26 +126,20 @@ const SelectInput = ({
               color: "#1d4ed8",
             },
           }),
-          placeholder: (base) => ({
-            ...base,
-            color: apiError ? "#f87171" : "#9ca3af",
-          }),
           dropdownIndicator: (base) => ({
             ...base,
-            color: apiError ? "#f87171" : "#6b7280",
+            color: apiError ? "#f87171" : isDarkMode ? "#9CA3AF" : "#6b7280",
             "&:hover": {
               color: apiError ? "#f87171" : "#2563eb",
             },
           }),
           indicatorSeparator: (base) => ({
             ...base,
-            backgroundColor: apiError ? "#f87171" : "#e5e7eb",
-          }),
-          menu: (base) => ({
-            ...base,
-            backgroundColor: "#ffffff",
-            color: "#111827",
-            zIndex: 50,
+            backgroundColor: apiError
+              ? "#f87171"
+              : isDarkMode
+              ? "#4B5563"
+              : "#E5E7EB",
           }),
         }}
       />

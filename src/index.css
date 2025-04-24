@@ -5,16 +5,34 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+
   html {
     font-family: "Poppins", sans-serif;
-    @apply transition-colors duration-300;
+    @apply transition-colors duration-200;
   }
 
   body {
-    @apply min-h-screen bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors duration-300;
+    @apply min-h-screen bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text;
   }
 }
 
+/* Prevents color flash on load */
+html {
+  color-scheme: light dark;
+}
+
+/* Force transitions to be smooth */
+* {
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+/* Specific component transitions */
+.react-select__control {
+  transition: background-color 200ms ease, border-color 200ms ease !important;
+}
 .page-transition-container {
   position: relative;
 }

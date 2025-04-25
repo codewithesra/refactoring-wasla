@@ -83,7 +83,7 @@ export const ProviderStepThreeSchema = yup.object({
 
   file: yup
     .mixed()
-    .nullable()
+    .required("documentation is required")
     .test("fileSize", "file is required", (value) => value !== null)
     .test("fileType", "only PDF files are allowed", (value) => {
       if (value) {

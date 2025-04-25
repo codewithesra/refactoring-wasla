@@ -7,7 +7,7 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
   }
 
   return (
-    <div className="flex justify-center mb-6 overflow-x-auto">
+    <div className="flex justify-center mb-6 overflow-x-auto whitespace-nowrap">
       {steps?.map((step, i) => {
         const isCompleted = i + 1 < currentStep || isSubmitted;
         const isActive = currentStep === i + 1;
@@ -15,7 +15,7 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
         return (
           <div
             key={i}
-            className={`relative flex flex-col justify-center items-center mx-4 transition-colors duration-300
+            className={`relative flex flex-col justify-center items-center mx-3 transition-colors duration-300
               ${isActive ? "text-light-primary dark:text-dark-primary" : ""}
               ${isCompleted ? "text-green-600" : "text-gray-500"}`}
           >
@@ -29,7 +29,16 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
                     : "bg-slate-700"
                 }`}
             >
-              {isCompleted ? <TiTick size={24} /> : <span>{i + 1}</span>}
+              {isCompleted ? (
+                <TiTick
+                  size={24}
+                  className={`transition-transform transform ${
+                    isCompleted ? "animate-check" : ""
+                  }`}
+                />
+              ) : (
+                <span>{i + 1}</span>
+              )}
             </div>
             <p
               className={`mt-2 text-center ${
@@ -44,4 +53,5 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
     </div>
   );
 };
+
 export default StepIndicator;

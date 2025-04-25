@@ -1,40 +1,46 @@
 import { useState, useEffect } from "react";
-import { SignupFormContainer } from "../1_atoms/SignupFormContainer";
+import { useMutation } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+// components
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
-import StudentSignup from "./SignupComponents/StudentSignup";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
 import StepIndicator from "../2_molecules/FormInputs/StepIndicator";
+import { SignupFormContainer } from "../1_atoms/SignupFormContainer";
+import FormSuccess from "../2_molecules/FormSuccess";
+// hooks
 import { useStepper } from "../../hooks/Stepper";
-import { HiAcademicCap } from "react-icons/hi";
-import { MdBusinessCenter } from "react-icons/md";
-import ProviderSignup from "./SignupComponents/ProviderSignup";
+// utils
+import { submitFormData } from "../../api/FormApi";
 import {
   studentDefaultValues,
   providerDefaultValues,
 } from "../../utils/DefaultFormData";
-import { useMutation } from "@tanstack/react-query";
-import { submitFormData } from "../../api/FormApi";
-import { RiVerifiedBadgeFill } from "react-icons/ri";
+import {
+  saveFormToStorage,
+  getFormFromStorage,
+  getCurrentStep,
+  clearStorage,
+} from "../../utils/LocalStorageLogic";
+//forms
 import EmailSignup from "./SignupComponents/EmailSignup";
+import ProviderSignup from "./SignupComponents/ProviderSignup";
+import StudentSignup from "./SignupComponents/StudentSignup";
+//icons
+import { HiAcademicCap } from "react-icons/hi";
+import { MdBusinessCenter } from "react-icons/md";
 
 const SignupForm = () => {
-  const [formData, setFormData] = useState(() => {
-    const savedData = localStorage.getItem("formData");
-    return savedData
-      ? { accountType: "", ...JSON.parse(savedData) }
-      : { accountType: "" };
-  });
-
+  const [formData, setFormData] = useState(getFormFromStorage);
+  const initialStep = getCurrentStep();
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const [direction, setDirection] = useState(1);
 
   const stepMap = {
     student: ["account info", "personal details", "extra info"],
     provider: ["account info", "provider details", "documents"],
   };
-
   const steps = stepMap[formData.accountType] || [];
-
-  const initialStep = parseInt(localStorage.getItem("currentStep")) || 1;
 
   const {
     currentStep,
@@ -48,8 +54,7 @@ const SignupForm = () => {
   } = useStepper(initialStep, steps.length, formData.accountType);
 
   useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-    localStorage.setItem("currentStep", currentStep.toString());
+    saveFormToStorage(formData, currentStep);
   }, [formData, currentStep]);
 
   const mutation = useMutation({
@@ -62,6 +67,7 @@ const SignupForm = () => {
       console.error("Submission failed:", error);
     },
   });
+
   const formSubmit = async (e) => {
     e.preventDefault();
     if (mutation.isPending) return;
@@ -78,6 +84,7 @@ const SignupForm = () => {
           },
         });
       } else {
+        setDirection(1);
         handleNext(formData);
       }
     }
@@ -87,7 +94,7 @@ const SignupForm = () => {
     setFormData({ accountType: "" });
     setIsSubmitted(false);
     resetStepper();
-    localStorage.clear();
+    clearStorage();
   };
 
   return (
@@ -100,31 +107,20 @@ const SignupForm = () => {
             isSubmitted={isSubmitted}
           />
         )}
-
         {isSubmitted ? (
-          <div className="text-center p-4">
-            <h2 className="text-2xl font-semibold mb-4 text-center">
-              <div className="flex justify-center mb-2">
-                <RiVerifiedBadgeFill className="text-blue-500 text-9xl" />
-              </div>
-              you have signed up successfully
-            </h2>
-            <p className="mb-6">what would you like to do?</p>
-            <div className="flex justify-center gap-4">
-              <ConfirmBtn type="button" onClick={resetForm}>
-                create a new account
-              </ConfirmBtn>
-            </div>
-          </div>
+          <FormSuccess
+            resetForm={resetForm}
+            accountType={formData.accountType}
+          />
         ) : (
-          <>
+          <div>
             {!formData.accountType && (
               <div className="flex justify-center">
                 <div className="flex flex-col items-center">
                   <RadioGroup
                     label={
                       <span className="block text-center w-full my-5">
-                        Choose Account Type
+                        choose Account Type
                       </span>
                     }
                     name="accountType"
@@ -155,31 +151,37 @@ const SignupForm = () => {
               </div>
             )}
 
-            {currentStep === 1 && formData.accountType && (
-              <EmailSignup
-                s
-                formData={formData}
-                setFormData={setFormData}
-                errors={errors}
-              />
-            )}
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, x: direction > 0 ? 100 : -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: direction > 0 ? -100 : 100 }}
+            >
+              {currentStep === 1 && formData.accountType && (
+                <EmailSignup
+                  formData={formData}
+                  setFormData={setFormData}
+                  errors={errors}
+                />
+              )}
 
-            {formData.accountType === "student" && (
-              <StudentSignup
-                currentStep={currentStep}
-                formData={formData}
-                setFormData={setFormData}
-                errors={errors}
-              />
-            )}
-            {formData.accountType === "provider" && (
-              <ProviderSignup
-                currentStep={currentStep}
-                formData={formData}
-                setFormData={setFormData}
-                errors={errors}
-              />
-            )}
+              {formData.accountType === "student" && (
+                <StudentSignup
+                  currentStep={currentStep}
+                  formData={formData}
+                  setFormData={setFormData}
+                  errors={errors}
+                />
+              )}
+              {formData.accountType === "provider" && (
+                <ProviderSignup
+                  currentStep={currentStep}
+                  formData={formData}
+                  setFormData={setFormData}
+                  errors={errors}
+                />
+              )}
+            </motion.div>
 
             <div className="flex mt-6">
               {formData.accountType && (
@@ -190,6 +192,7 @@ const SignupForm = () => {
                       if (isFirstStep) {
                         setFormData({ accountType: "" });
                       } else {
+                        setDirection(-1);
                         handleBack();
                       }
                     }}
@@ -206,12 +209,11 @@ const SignupForm = () => {
                         ? "Signing Up"
                         : "Sign Up"
                       : "Next"}
-                    {console.log(currentStep)}
                   </ConfirmBtn>
                 )}
               </div>
             </div>
-          </>
+          </div>
         )}
       </form>
     </SignupFormContainer>

@@ -10,7 +10,7 @@ export const SignupFormContainer = ({ children }) => {
 
 export const FieldsContainer = ({ children }) => {
   return (
-    <div className="grid grid-cols-1 my-2 sm:grid-cols-2 gap-4 w-full">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
       {children}
     </div>
   );

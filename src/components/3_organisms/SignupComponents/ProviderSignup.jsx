@@ -81,11 +81,12 @@ const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
         />
 
         <FileInput
-          label="file"
+          label="upload a file"
           name="file"
           onChange={handleChange}
           error={errors.file}
           fileName={formData.file ? formData.file.name : ""}
+          aboutFile={"upload a file to prove your organization's identity"}
         />
       </>
     );

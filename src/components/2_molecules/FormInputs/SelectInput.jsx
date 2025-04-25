@@ -12,7 +12,7 @@ const SelectInput = ({
   error,
   apiError,
 }) => {
-  const isDarkMode = ModeDetector();
+  const isDarkMode = ModeDetector(); // Get the theme from the hook
 
   const handleChange = (selectedOption) => {
     const fakeEvent = {
@@ -38,8 +38,6 @@ const SelectInput = ({
     (!value || (Array.isArray(value) && value.length === 0)) && apiError
       ? apiError
       : placeholder;
-
-  console.log("Current mode is:", isDarkMode ? "dark" : "light");
 
   return (
     <div className="mb-4">

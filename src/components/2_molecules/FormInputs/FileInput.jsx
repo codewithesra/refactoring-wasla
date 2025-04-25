@@ -1,15 +1,20 @@
 import { FaCloudUploadAlt } from "react-icons/fa";
 
-const FileInput = ({ label, name, onChange, error, fileName }) => {
+const FileInput = ({ label, name, onChange, error, fileName, aboutFile }) => {
   return (
     <div>
-      <label htmlFor={name} className="font-bold text-gray-800 mb-2 block">
+      <label
+        htmlFor={name}
+        className="font-bold text-light-text dark:text-dark-text mb-2 block"
+      >
         {label}
       </label>
       <div
         className={`border ${
-          error ? "border-red-500" : "border-gray-300"
-        } rounded px-4 py-2 w-full mb-3 flex items-center justify-between relative`}
+          error
+            ? "border-red-500"
+            : "border-light-border dark:border-dark-border"
+        } rounded px-4 py-2 w-full mb-1 flex items-center justify-between relative`}
       >
         <input
           type="file"
@@ -23,7 +28,9 @@ const FileInput = ({ label, name, onChange, error, fileName }) => {
           <span className="text-gray-600">{fileName || "Choose a file"}</span>
         </div>
       </div>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {aboutFile && <p className="text-sm text-gray-600">{aboutFile}</p>}
+
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
     </div>
   );
 };

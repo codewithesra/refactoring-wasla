@@ -26,7 +26,7 @@ export const useSkills = (enabled = false) => {
     queryFn: async () => {
       console.log("fetching skills");
       const res = await axios.get(
-        "https://api.apilayer.com/skills?q=development",
+        "https://api.apilaye.com/skills?q=development",
         {
           headers: {
             apikey: skillsKey,

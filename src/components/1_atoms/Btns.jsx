@@ -69,7 +69,7 @@ export const NavLinkBtn = ({ to, children }) => {
   return (
     <Link
       to={to}
-      className={`mt-4 mb-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition`}
+      className={`mb-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900/30`}
     >
       {children}
     </Link>

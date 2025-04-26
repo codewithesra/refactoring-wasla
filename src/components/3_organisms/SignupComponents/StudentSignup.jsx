@@ -22,16 +22,16 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   } = useSkills(currentStep === 3);
 
   useEffect(() => {
-    if (countriesError) {
-      toast.error("unable to load countries");
+    if (countriesError && currentStep === 3) {
+      toast.error("Unable to load countries");
     }
-  });
+  }, [countriesError, currentStep]);
 
   useEffect(() => {
-    if (skillsError) {
+    if (skillsError && currentStep === 3) {
       toast.error("unable to load skills");
     }
-  });
+  }, [skillsError, currentStep]);
 
   if (currentStep === 2) {
     return (

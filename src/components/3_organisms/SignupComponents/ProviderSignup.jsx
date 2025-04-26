@@ -5,6 +5,8 @@ import SelectInput from "../../2_molecules/FormInputs/SelectInput";
 import { DateInput } from "../../2_molecules/FormInputs/DateInput";
 import FileInput from "../../2_molecules/FormInputs/FileInput";
 import { useCountries } from "../../../api/FormApi";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
@@ -12,7 +14,13 @@ const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
     data: countries = [],
     isLoading: countriesLoading,
     isError: countriesError,
-  } = useCountries();
+  } = useCountries(currentStep === 2);
+
+  useEffect(() => {
+    if (countriesError && currentStep === 2) {
+      toast.error("unable to load countries");
+    }
+  }, [countriesError, currentStep]);
 
   if (currentStep === 2) {
     return (

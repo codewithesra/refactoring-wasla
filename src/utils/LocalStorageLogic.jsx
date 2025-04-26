@@ -22,3 +22,8 @@ export const clearStorage = () => {
   localStorage.removeItem(storageKey);
   localStorage.removeItem(stepKey);
 };
+
+export const getSubmissionStatus = () => {
+  const status = localStorage.getItem("isSubmitted");
+  return status === "true";
+};

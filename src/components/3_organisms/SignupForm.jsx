@@ -107,6 +107,8 @@ const SignupForm = () => {
             isSubmitted={isSubmitted}
           />
         )}
+        {console.log("current step:", currentStep)}
+
         {isSubmitted ? (
           <FormSuccess
             resetForm={resetForm}

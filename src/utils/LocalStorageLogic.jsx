@@ -14,7 +14,8 @@ export const getFormFromStorage = () => {
 };
 
 export const getCurrentStep = () => {
-  return parseInt(localStorage.getItem(stepKey));
+  const saved = parseInt(localStorage.getItem(stepKey), 10);
+  return isNaN(saved) ? 1 : saved;
 };
 
 export const clearStorage = () => {

@@ -4,6 +4,8 @@ import { HandleChange } from "../../../utils/HelperFunctions";
 import { FieldsContainer } from "../../1_atoms/SignupFormContainer";
 
 const EmailSignup = ({ formData, setFormData, errors }) => {
+  console.log("EmailSignup rendering");
+
   return (
     <>
       <TextInput

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
+// eslint-disable-next-line
 import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
 // components
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
@@ -20,6 +22,7 @@ import {
   getFormFromStorage,
   getCurrentStep,
   clearStorage,
+  getSubmissionStatus,
 } from "../../utils/LocalStorageLogic";
 //forms
 import EmailSignup from "./SignupComponents/EmailSignup";
@@ -32,7 +35,7 @@ import { MdBusinessCenter } from "react-icons/md";
 const SignupForm = () => {
   const [formData, setFormData] = useState(getFormFromStorage);
   const initialStep = getCurrentStep();
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(getSubmissionStatus());
 
   const [direction, setDirection] = useState(1);
 
@@ -78,6 +81,9 @@ const SignupForm = () => {
           onSuccess: () => {
             setIsSubmitted(true);
             resetStepper();
+            formData.accountType === "student"
+              ? toast.success("Your account has been created successfully!")
+              : toast.success("your account is under review");
           },
           onError: (error) => {
             console.error("submission failed:", error);

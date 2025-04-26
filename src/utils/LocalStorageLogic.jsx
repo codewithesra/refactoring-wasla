@@ -14,11 +14,16 @@ export const getFormFromStorage = () => {
 };
 
 export const getCurrentStep = () => {
-  const saved = parseInt(localStorage.getItem(stepKey), 10);
-  return isNaN(saved) ? 1 : saved;
+  const step = localStorage.getItem(stepKey);
+  return step ? parseInt(step) : 1;
 };
 
 export const clearStorage = () => {
   localStorage.removeItem(storageKey);
   localStorage.removeItem(stepKey);
+};
+
+export const getSubmissionStatus = () => {
+  const status = localStorage.getItem("isSubmitted");
+  return status === "true";
 };

@@ -1,6 +1,5 @@
 import SignupForm from "../3_organisms/SignupForm";
 import FormTitle from "../2_molecules/FormTitle";
-import Navbar from "../2_molecules/NavBar";
 
 const Signup = () => {
   return (

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-export const useCountries = () => {
+export const useCountries = (enabled = false) => {
   return useQuery({
     queryKey: ["countries"],
     queryFn: async () => {
@@ -14,11 +14,12 @@ export const useCountries = () => {
         value: country.name.common,
       }));
     },
+    enabled,
     retry: 2,
   });
 };
 
-export const useSkills = () => {
+export const useSkills = (enabled = false) => {
   const skillsKey = import.meta.env.VITE_SKILLS_API_KEY;
   return useQuery({
     queryKey: ["skills"],
@@ -37,6 +38,7 @@ export const useSkills = () => {
         value: skill,
       }));
     },
+    enabled,
     retry: 2,
   });
 };

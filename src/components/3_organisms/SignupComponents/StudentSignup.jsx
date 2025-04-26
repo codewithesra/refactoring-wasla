@@ -5,6 +5,8 @@ import SelectInput from "../../2_molecules/FormInputs/SelectInput";
 import { DateInput } from "../../2_molecules/FormInputs/DateInput";
 import RadioGroup from "../../2_molecules/FormInputs/RadioGroup";
 import { useCountries, useSkills } from "../../../api/FormApi";
+import { toast } from "react-hot-toast";
+import { useEffect } from "react";
 
 const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
   const handleChange = (e) => HandleChange(e, setFormData);
@@ -12,12 +14,24 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
     data: countries = [],
     isLoading: countriesLoading,
     isError: countriesError,
-  } = useCountries();
+  } = useCountries(currentStep === 3);
   const {
     data: skills = [],
     isLoading: skillsLoading,
     isError: skillsError,
-  } = useSkills();
+  } = useSkills(currentStep === 3);
+
+  useEffect(() => {
+    if (countriesError) {
+      toast.error("unable to load countries");
+    }
+  });
+
+  useEffect(() => {
+    if (skillsError) {
+      toast.error("unable to load skills");
+    }
+  });
 
   if (currentStep === 2) {
     return (

@@ -14,7 +14,8 @@ export const getFormFromStorage = () => {
 };
 
 export const getCurrentStep = () => {
-  return parseInt(localStorage.getItem(stepKey));
+  const step = localStorage.getItem(stepKey);
+  return step ? parseInt(step) : 1;
 };
 
 export const clearStorage = () => {

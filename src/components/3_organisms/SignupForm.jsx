@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
 // components
 import { ConfirmBtn, GreyBtn } from "../1_atoms/Btns";
 import RadioGroup from "../2_molecules/FormInputs/RadioGroup";
@@ -78,6 +79,9 @@ const SignupForm = () => {
           onSuccess: () => {
             setIsSubmitted(true);
             resetStepper();
+            formData.accountType === "student"
+              ? toast.success("Your account has been created successfully!")
+              : toast.success("your account is under review");
           },
           onError: (error) => {
             console.error("submission failed:", error);
@@ -109,7 +113,7 @@ const SignupForm = () => {
         )}
         {isSubmitted ? (
           <FormSuccess
-            resetForm={resetForm}
+            resetForm={resetForm()}
             accountType={formData.accountType}
           />
         ) : (

@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    @apply min-h-screen bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text;
+  }
+}
+
+html {
+  color-scheme: light dark;
+}
+
+.theme-ready * {
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+
+.theme-ready html {
+  transition: color 200ms ease, background-color 200ms ease;
+}
+
+/* React Select transitions */
+.react-select__control {
+  transition: background-color 200ms ease, border-color 200ms ease;
+  @apply border border-gray-300 rounded px-4 py-1 w-full shadow-none;
+}
+
+/* Page transition styles */
+.page-transition-container {
+  position: relative;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+/* check-mark animations */
+@keyframes checkAnimation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.animate-check {
+  animation: checkAnimation 0.3s ease-out forwards;
+}
+
+/* overriding browser's styling */
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important; /* white for light mode */
+  -webkit-text-fill-color: #1f2937 !important; /* text-light-text color */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.dark input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px #1a1a1a inset !important; /* dark-card color */
+  -webkit-text-fill-color: #f9f9f9 !important; /* dark-text color */
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="month"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}

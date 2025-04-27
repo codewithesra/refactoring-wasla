@@ -42,7 +42,6 @@ const SignupForm = () => {
         : providerDefaultValues;
     }
 
-    // لا يوجد accountType => نوقف هنا ونحول المستخدم أو نظهر خطأ حسب الحاجة
     return null;
   });
 

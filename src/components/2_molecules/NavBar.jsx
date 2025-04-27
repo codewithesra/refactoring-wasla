@@ -78,7 +78,7 @@ const Navbar = ({ navLinks = [] }) => {
   return (
     <div className="sticky top-0 z-50 w-full bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-md">
       <div className="flex justify-between items-center mx-10 gap-15 h-20 max-w-[1240px] ">
-        <h1 className="text-xl font-bold">refactoring wasla</h1>
+        <h1 className="text-xl font-bold text-[#648db3]">refactoring wasla</h1>
 
         <nav className="hidden md:flex gap-10 justify-center items-center">
           {renderNavLinks()}

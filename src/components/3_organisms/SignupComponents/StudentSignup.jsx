@@ -1,3 +1,4 @@
+import React from "react";
 import { HandleChange } from "../../../utils/HelperFunctions";
 import { FieldsContainer } from "../../1_atoms/SignupFormContainer";
 import TextInput from "../../2_molecules/FormInputs/TextInput";

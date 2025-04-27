@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useCallback } from "react";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -61,6 +62,7 @@ export function useStepper(
 
   const handleNext = useCallback(
     async (values) => {
+      console.log(currentStep);
       const { isValid } = await validateStep(currentStep, values);
       if (isValid && (!maxSteps || currentStep < maxSteps)) {
         setCurrentStep((prev) => prev + 1);

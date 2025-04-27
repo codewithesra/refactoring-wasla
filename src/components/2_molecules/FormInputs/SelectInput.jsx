@@ -1,3 +1,4 @@
+import React from "react";
 import Select from "react-select";
 import ModeDetector from "../../../hooks/ModeDetector";
 

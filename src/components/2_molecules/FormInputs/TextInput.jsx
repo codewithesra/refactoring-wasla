@@ -1,3 +1,5 @@
+import React from "react";
+
 const TextInput = ({
   label,
   type = "text",

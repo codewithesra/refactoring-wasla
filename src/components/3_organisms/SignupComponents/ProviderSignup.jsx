@@ -44,33 +44,31 @@ const ProviderSignup = ({ currentStep, formData, setFormData, errors }) => {
           />
         </FieldsContainer>
 
-        <FieldsContainer>
-          <SelectInput
-            label="choose a country"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            placeholder={
-              countriesLoading ? "loading countries ..." : "choose a country"
-            }
-            options={countries}
-            error={errors.country}
-            apiError={countriesError ? "unable to load " : null}
-          />
-          <SelectInput
-            label="industry"
-            name="industry"
-            value={formData.industry}
-            onChange={handleChange}
-            placeholder="select industry"
-            options={[
-              { value: "tech", label: "tech" },
-              { value: "medical", label: "medical" },
-              { value: "engineering", label: "engineering" },
-            ]}
-            error={errors.industry}
-          />
-        </FieldsContainer>
+        <SelectInput
+          label="country"
+          name="country"
+          value={formData.country}
+          onChange={handleChange}
+          placeholder={
+            countriesLoading ? "loading countries ..." : "pick a country"
+          }
+          options={countries}
+          error={errors.country}
+          apiError={countriesError ? "unable to load " : null}
+        />
+        <SelectInput
+          label="industry"
+          name="industry"
+          value={formData.industry}
+          onChange={handleChange}
+          placeholder="select industry"
+          options={[
+            { value: "tech", label: "tech" },
+            { value: "medical", label: "medical" },
+            { value: "engineering", label: "engineering" },
+          ]}
+          error={errors.industry}
+        />
       </>
     );
   }

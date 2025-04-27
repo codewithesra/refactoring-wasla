@@ -5,6 +5,7 @@ import SignupPage from "./components/5_pages/SignupPage";
 import ToasterNotif from "./utils/ToasterNotif";
 import LandingPage from "./components/5_pages/LandingPage";
 import DarkModeToggle from "./components/1_atoms/DarkMode";
+import UserRolePage from "./components/5_pages/UserRolePage";
 
 function App() {
   const queryClient = new QueryClient();
@@ -16,7 +17,8 @@ function App() {
         <DarkModeToggle />
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/Signup" element={<SignupPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/userRole" element={<UserRolePage />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

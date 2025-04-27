@@ -5,7 +5,7 @@ export const GetNavBarBtn = (pathname, mobile = false, handleClose) => {
     return (
       <NavLinkBtn
         type="button"
-        to="/signup"
+        to="/userRole"
         onClick={mobile ? handleClose : undefined}
       >
         Join Now
@@ -13,7 +13,7 @@ export const GetNavBarBtn = (pathname, mobile = false, handleClose) => {
     );
   }
 
-  if (pathname === "/signup") {
+  if (pathname === "/signup" || pathname === "/userRole") {
     return (
       <NavLinkBtn
         type="button"

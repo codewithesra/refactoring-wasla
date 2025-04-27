@@ -30,7 +30,7 @@ export const DateInput = ({
               error
                 ? "border border-red-500"
                 : "border border-light-border dark:border-dark-border focus:border-light-primary dark:focus:border-dark-primary"
-            } pr-10`}
+            } pr-10 appearance-none`} // This hides the native date picker UI
         />
         <FaRegCalendarAlt className="absolute right-3 top-1/2 transform -translate-y-1/2 text-light-text dark:text-dark-text pointer-events-none" />
       </div>

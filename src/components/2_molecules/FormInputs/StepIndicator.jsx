@@ -20,7 +20,7 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
               ${isCompleted ? "text-green-600" : "text-gray-500"}`}
           >
             <div
-              className={`w-10 h-10 flex items-center justify-center z-10 relative rounded-full font-semibold text-white
+              className={`w-10 h-10 sm:w-4 sm:h-4 md:w-12 md:h-12 flex items-center justify-center z-10 relative rounded-full font-semibold text-white
                 ${
                   isCompleted
                     ? "bg-green-600"
@@ -37,11 +37,11 @@ const StepIndicator = ({ steps, currentStep, isSubmitted }) => {
                   }`}
                 />
               ) : (
-                <span>{i + 1}</span>
+                <span className="text-sm sm:text-base md:text-lg">{i + 1}</span>
               )}
             </div>
             <p
-              className={`mt-2 text-center ${
+              className={`mt-2 text-center text-xs sm:text-sm md:text-base ${
                 isCompleted ? "text-gray-800 dark:text-gray-200" : ""
               }`}
             >

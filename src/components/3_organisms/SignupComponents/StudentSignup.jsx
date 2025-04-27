@@ -92,7 +92,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
             value={formData.country}
             onChange={handleChange}
             placeholder={
-              countriesLoading ? "loading countries ..." : "choose a country"
+              countriesLoading ? "loading countries" : "pick a country"
             }
             options={countries}
             error={errors.country}
@@ -133,7 +133,7 @@ const StudentSignup = ({ currentStep, formData, setFormData, errors }) => {
           value={formData.studentSkills}
           onChange={handleChange}
           placeholder={
-            skillsLoading ? "loading skills ..." : "choose at least one skill"
+            skillsLoading ? "loading skills" : "pick at least one skill"
           }
           options={skills}
           isMulti={true}

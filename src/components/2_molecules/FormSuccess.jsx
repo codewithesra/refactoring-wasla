@@ -1,6 +1,7 @@
 import { ConfirmBtn } from "../1_atoms/Btns";
 import { RiVerifiedBadgeFill } from "react-icons/ri";
 import { VscOpenPreview } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 const FormSuccess = ({ accountType, resetForm }) => {
   return (
@@ -27,9 +28,11 @@ const FormSuccess = ({ accountType, resetForm }) => {
       )}
       <p className="mb-6">What would you like to do?</p>
       <div className="flex justify-center gap-4">
-        <ConfirmBtn type="button" onClick={resetForm}>
-          Create a new account
-        </ConfirmBtn>
+        <Link to="/userRole">
+          <ConfirmBtn type="button" onClick={resetForm}>
+            Create a new account
+          </ConfirmBtn>
+        </Link>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ const SelectInput = ({
   error,
   apiError,
 }) => {
-  const isDarkMode = ModeDetector(); // Get the theme from the hook
+  const isDarkMode = ModeDetector();
 
   const handleChange = (selectedOption) => {
     const fakeEvent = {

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import { MdCancel } from "react-icons/md";
 import { GetNavBarBtn } from "../../utils/GetNavBarBtn";
+
 const Navbar = ({ navLinks = [] }) => {
   const [navOpen, setNavOpen] = useState(false);
   const location = useLocation();
@@ -40,6 +41,7 @@ const Navbar = ({ navLinks = [] }) => {
       ))}
     </>
   );
+
   const renderMobileToggle = () => (
     <div className="md:hidden z-50" onClick={() => setNavOpen(!navOpen)}>
       {navOpen ? <MdCancel size={30} /> : <IoMenu size={30} />}
@@ -72,8 +74,9 @@ const Navbar = ({ navLinks = [] }) => {
       {GetNavBarBtn(location.pathname, true, handleClose)}
     </div>
   );
+
   return (
-    <div className="sticky z-50 w-full bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-md">
+    <div className="sticky top-0 z-50 w-full bg-light-card dark:bg-dark-card text-light-text dark:text-dark-text shadow-md">
       <div className="flex justify-between items-center mx-10 gap-15 h-20 max-w-[1240px] ">
         <h1 className="text-xl font-bold">refactoring wasla</h1>
 

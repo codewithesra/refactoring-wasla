@@ -17,26 +17,24 @@ const EmailSignup = ({ formData, setFormData, errors }) => {
         placeholder="enter your email"
         error={errors.email}
       />
-      <FieldsContainer>
-        <PasswordInput
-          label="password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={(e) => HandleChange(e, setFormData)}
-          placeholder="enter your password"
-          error={errors.password}
-        />
-        <PasswordInput
-          label="confirm Password"
-          type="password"
-          name="confirmPassword"
-          value={formData.confirmPassword}
-          onChange={(e) => HandleChange(e, setFormData)}
-          placeholder="confirm your password"
-          error={errors.confirmPassword}
-        />
-      </FieldsContainer>
+      <PasswordInput
+        label="password"
+        type="password"
+        name="password"
+        value={formData.password}
+        onChange={(e) => HandleChange(e, setFormData)}
+        placeholder="enter your password"
+        error={errors.password}
+      />
+      <PasswordInput
+        label="confirm Password"
+        type="password"
+        name="confirmPassword"
+        value={formData.confirmPassword}
+        onChange={(e) => HandleChange(e, setFormData)}
+        placeholder="confirm your password"
+        error={errors.confirmPassword}
+      />
     </>
   );
 };

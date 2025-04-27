@@ -1,4 +1,4 @@
-const FormTitle = ({ title, description }) => {
+const TitlewithDesc = ({ title, description }) => {
   return (
     <div className="text-center mb-10">
       <h1 className="text-3xl font-bold mb-2">{title}</h1>
@@ -7,4 +7,4 @@ const FormTitle = ({ title, description }) => {
   );
 };
 
-export default FormTitle;
+export default TitlewithDesc;

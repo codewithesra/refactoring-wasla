@@ -14,7 +14,7 @@ const PasswordInput = ({
   const toggleVisibility = () => setShowPassword((prev) => !prev);
 
   return (
-    <div className="relative">
+    <div className="relative mb-4">
       <label
         htmlFor={name}
         className="font-bold text-gray-800 mb-2 block dark:text-gray-300"

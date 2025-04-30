@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        const mode = localStorage.getItem("darkMode");
+        if (mode === "true") {
+          document.documentElement.classList.add("dark");
+        }
+        // Disable transitions during initial load to avoid flicker
+        document.documentElement.style.setProperty(
+          "transition",
+          "none",
+          "important"
+        );
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Refactoring Wasla</title>
+    <script type="module" crossorigin src="/refactoring-wasla/assets/index-CNxGcmNI.js"></script>
+    <link rel="stylesheet" crossorigin href="/refactoring-wasla/assets/index-fBxB5bGY.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
